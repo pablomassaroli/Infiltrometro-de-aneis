@@ -1,0 +1,35 @@
+#include <Ultrasonic.h>
+Ultrasonic ultrassom(4, 5); // define o nome do sensor(ultrassom)
+                             //e onde esta ligado o trig(4) e o echo(5) respectivamente
+float num = 1.10;
+int fim = 0, vib = 0, cont = 0, distancia1=0, distancia2=0;
+
+void setup() {
+  Serial.begin(9600); //Habilita Comunicação Serial a uma taxa de 9600 bauds.
+}
+
+void loop() {
+
+distancia1 = ultrassom.Ranging(CM);
+Serial.print (" ---- ");
+Serial.print (distancia1);
+delay (1800000); // 0.5 hr
+                
+
+distancia2 = ultrassom.Ranging(CM);
+Serial.print (" ---- ");
+Serial.print (distancia2);
+delay (1800000); // 0.5 hr
+
+   if (distancia1 <= distancia2*num){
+    cont++;
+    Serial.print ("cont++");
+   
+       if (cont >= 4){
+        Serial.print ("sua VIB é de : ");
+        Serial.print (15-distancia2);    //15 é o valor da altura total do tubo de medição    
+       }
+   
+   }
+ 
+}
